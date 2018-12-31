@@ -1,8 +1,10 @@
 package it.marvinflock.tree.controller;
 
 import it.marvinflock.tree.domain.Person;
+import it.marvinflock.tree.exception.PersonNotFoundException;
 import it.marvinflock.tree.service.PersonService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/trees")
+@RequestMapping("/")
 public class PeopleController {
 
   private final PersonService personService;
@@ -21,18 +23,34 @@ public class PeopleController {
     this.personService = personService;
   }
 
-  @GetMapping("/people/{username}")
-  public Person getPerson(@PathVariable String username) {
-    Person newPerson = new Person();
-    newPerson.setFirstNames(List.of(username));
-    return personService.save(newPerson);
+  /**
+   * get a single person
+   *
+   * @param id of person
+   * @return person
+   */
+  @GetMapping("/people/{id}")
+  public Person getPerson(@PathVariable long id) {
+    Optional<Person> optionalPerson = personService.findById(id);
+    if (optionalPerson.isEmpty()) {
+      throw new PersonNotFoundException();
+    }
+    return optionalPerson.get();
   }
 
+  /**
+   * lists all people of a tree
+   *
+   * @return List of people of a tree
+   */
   @GetMapping("/people")
   public List<Person> getAllPeople() {
     return personService.getAllPeople();
   }
 
+  /**
+   * deletes a tree
+   */
   @DeleteMapping("/people")
   public void deleteAllPeople() {
     personService.deleteAllPeople();

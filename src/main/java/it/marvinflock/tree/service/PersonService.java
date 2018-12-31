@@ -3,6 +3,7 @@ package it.marvinflock.tree.service;
 import it.marvinflock.tree.domain.Person;
 import it.marvinflock.tree.repository.PersonRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +28,10 @@ public class PersonService {
   public Person save(Person person) {
     return personRepository.save(person);
   }
+
+  public Optional<Person> findById(long id) {
+    return personRepository.findById(id);
+  }
+
+
 }
