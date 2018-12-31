@@ -18,7 +18,7 @@ public class Person {
   @GeneratedValue
   private Long id;
 
-  private List<String> surnames;
+  private List<String> lastNames;
   private List<String> firstNames;
   private Long birthday;
 
