@@ -1,4 +1,4 @@
-package it.marvinflock.Tree;
+package it.marvinflock.tree;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
