@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/trees")
-public class MainController {
+public class PeopleController {
 
   private final PersonService personService;
 
   @Autowired
-  public MainController(PersonService personService) {
+  public PeopleController(PersonService personService) {
     this.personService = personService;
   }
 
